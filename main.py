@@ -14,9 +14,8 @@ def end_read(signal,frame):
     pass
 
 def get_time():
-    mylcd.lcd_display_string("Havenlab", 1)
-    mylcd.lcd_display_string("Time remaining", 2)
-    mylcd.lcd_display_string("Time: %s" % time.strftime("%H:%M:%S"), 1)
+    mylcd.lcd_display_string("Time remaining", 1)
+    mylcd.lcd_display_string("30 minutes", 2)
     pass
 
 
