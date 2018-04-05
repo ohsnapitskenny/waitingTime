@@ -14,11 +14,10 @@ def end_read(signal,frame):
     pass
 
 def get_time():
-    start = time.time()
-    time.clock()
+    start = time()
     elapsed = 0
     while elapsed < 1800: #Time will be wrong after scanning card
-        elapsed = time.time() - start
+        elapsed = time() - start
         print "loop cycle time: %f, seconds count: %02d" % (time.clock(), elapsed)
         time.sleep(1)
 
