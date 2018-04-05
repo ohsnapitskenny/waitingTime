@@ -19,10 +19,8 @@ def get_time():
     while elapsed < 1800: #Time will be wrong after scanning card
         elapsed = time() - start
         sleep(1)
-
-    mylcd.lcd_display_string("Time remaining: ", 1)
-    mylcd.lcd_display_string(elapsed, 2)
-
+        mylcd.lcd_display_string("Time remaining: ", 1)
+        mylcd.lcd_display_string(elapsed, 2)
     pass
 
 signal.signal(signal.SIGINT, end_read)
@@ -35,9 +33,6 @@ print "Press Ctrl-C to stop."
 mylcd = RPi_I2C_driver.lcd()
 
 while continue_reading:
-
-    get_time()
-
     # Scan for cards    
     (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
 
@@ -47,3 +42,5 @@ while continue_reading:
         mylcd.lcd_display_string("Reservation has", 1)
         mylcd.lcd_display_string("been made!", 2)
         sleep(5)
+
+    get_time()
