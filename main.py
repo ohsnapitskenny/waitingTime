@@ -14,10 +14,18 @@ def end_read(signal,frame):
     pass
 
 def get_time():
-    mylcd.lcd_display_string("Time remaining", 1)
-    mylcd.lcd_display_string("30 minutes", 2)
-    pass
+    start = time.time()
+    time.clock()
+    elapsed = 0
+    while elapsed < 1800: #Time will be wrong after scanning card
+        elapsed = time.time() - start
+        print "loop cycle time: %f, seconds count: %02d" % (time.clock(), elapsed)
+        time.sleep(1)
 
+    mylcd.lcd_display_string("Time remaining: ", 1)
+    mylcd.lcd_display_string(elapsed, 2)
+
+    pass
 
 signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
