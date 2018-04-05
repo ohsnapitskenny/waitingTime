@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import RPi_I2C_driver
 import MFRC522
 import signal
 
@@ -16,6 +17,10 @@ MIFAREReader = MFRC522.MFRC522()
 # Welcome message
 print "Starting MFRC522 data reader"
 print "Press Ctrl-C to stop."
+mylcd = RPi_I2C_driver.lcd()
+mylcd.lcd_display_string("Havenlab", 1)
+mylcd.lcd_display_string("Time remaining", 2)
+
 
 while continue_reading:
     
@@ -24,26 +29,5 @@ while continue_reading:
 
     # If a card is found
     if status == MIFAREReader.MI_OK:
-        print "Card detected"
-    
-    # Get the UID of the card
-    (status,uid) = MIFAREReader.MFRC522_Anticoll()
-
-    # If we have the UID, continue
-    if status == MIFAREReader.MI_OK:
-        print "Card read UID: %s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3])
-    
-        key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
-        
-        MIFAREReader.MFRC522_SelectTag(uid)
-
-        # Authenticate
-        status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-
-        # Check if authenticated
-        if status == MIFAREReader.MI_OK:
-            MIFAREReader.MFRC522_Read(8)
-            MIFAREReader.MFRC522_StopCrypto1()
-        else:
-            print "Authentication error"
-
+        mylcd.lcd_clear()
+        mylcd.lcd_display_string("Reservation made")
