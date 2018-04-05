@@ -18,7 +18,7 @@ def get_time():
     elapsed = 0
     while elapsed < 1800: #Time will be wrong after scanning card
         elapsed = time() - start
-        time.sleep(1)
+        sleep(1)
 
     mylcd.lcd_display_string("Time remaining: ", 1)
     mylcd.lcd_display_string(elapsed, 2)
