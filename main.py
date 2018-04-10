@@ -17,7 +17,7 @@ def end_read(signal,frame):
 
 def show_time():
     mylcd.lcd_display_string("Time remaining:", 1)
-    mylcd.lcd_display_string("30 minutes:", 2)
+    mylcd.lcd_display_string("30 minutes", 2)
 
 signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
