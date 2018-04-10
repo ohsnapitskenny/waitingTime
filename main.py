@@ -5,26 +5,19 @@ import signal
 from time import *
 
 continue_reading = True
+countdownTimer = 1800
 
 def end_read(signal,frame):
+
     global continue_reading
     print "Ctrl+C captured, ending read."
     continue_reading = False
     GPIO.cleanup()
     pass
 
-def get_time():
+def show_time():
     mylcd.lcd_display_string("Time remaining:", 1)
     mylcd.lcd_display_string("30 minutes:", 2)
-
-    # start = time()
-    # elapsed = 0
-    # while elapsed < 1800: #Time will be wrong after scanning card
-    #     elapsed = time() - start
-    #     sleep(1)
-    #     mylcd.lcd_display_string("Time remaining: ", 1)
-    #     mylcd.lcd_display_string(elapsed, 2)
-    # pass
 
 signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
@@ -36,15 +29,17 @@ print "Press Ctrl-C to stop."
 mylcd = RPi_I2C_driver.lcd()
 
 while continue_reading:
+    # show_time()
 
     # Scan for cards
     (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
-
-    get_time()
 
     # If a card is found
     if status == MIFAREReader.MI_OK:
         mylcd.lcd_clear()
         mylcd.lcd_display_string("Reservation has", 1)
         mylcd.lcd_display_string("been made!", 2)
+        # countdownTimer = countdownTimer - 5
         sleep(5)
+
+    # countdownTimer = countdownTimer - 1
