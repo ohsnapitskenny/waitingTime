@@ -41,5 +41,6 @@ while continue_reading:
         mylcd.lcd_display_string("been made!", 2)
         # countdownTimer = countdownTimer - 5
         sleep(5)
+        print "Card scanned"
 
     # countdownTimer = countdownTimer - 1
