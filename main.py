@@ -29,7 +29,7 @@ print "Press Ctrl-C to stop."
 mylcd = RPi_I2C_driver.lcd()
 
 while continue_reading:
-    # show_time()
+    show_time()
 
     # Scan for cards
     (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
