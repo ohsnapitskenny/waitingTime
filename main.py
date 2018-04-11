@@ -16,8 +16,8 @@ def end_read(signal,frame):
     pass
 
 def show_time():
-    mylcd.lcd_display_string("  WaitingTime  ", 1)
-    mylcd.lcd_display_string("  30 minutes  ", 2)
+    mylcd.lcd_display_string("  Waiting Time  ", 1)
+    mylcd.lcd_display_string("   30 minutes  ", 2)
 
 signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
@@ -39,7 +39,3 @@ while continue_reading:
         mylcd.lcd_clear()
         mylcd.lcd_display_string("Reservation has", 1)
         mylcd.lcd_display_string("been made!", 2)
-
-        sleep(5)
-
-    # countdownTimer = countdownTimer - 1
