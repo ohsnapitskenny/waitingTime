@@ -10,6 +10,7 @@ countdownTimer = 1800
 def end_read(signal,frame):
 
     global continue_reading
+    global countdownTimer
     print "Ctrl+C captured, ending read."
     continue_reading = False
     GPIO.cleanup()
@@ -40,7 +41,7 @@ while continue_reading:
         mylcd.lcd_display_string("Reservation has", 1)
         mylcd.lcd_display_string("been made!", 2)
         # countdownTimer = countdownTimer - 5
-        sleep(5)
         print "Card scanned"
+        sleep(5)
 
     # countdownTimer = countdownTimer - 1
