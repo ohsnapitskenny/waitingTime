@@ -18,7 +18,8 @@ def end_read(signal,frame):
 def show_time():
     mylcd.lcd_display_string("  Waiting Time  ", 1)
     print countdownTimer
-    mylcd.lcd_display_string("   30 minutes  ", 2)
+    remainingTime = countdownTimer / 60
+    mylcd.lcd_display_string("   " + str(remainingTime) + "30 minutes  ", 2)
 
 signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
@@ -43,4 +44,7 @@ while continue_reading:
         sleep(5)
         countdownTimer = countdownTimer - 5
 
-    countdownTimer = countdownTimer - 1
+    if countdownTimer == 0 :
+        countdownTimer = 1800
+    else:
+        countdownTimer = countdownTimer - 1
