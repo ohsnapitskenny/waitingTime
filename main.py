@@ -39,3 +39,4 @@ while continue_reading:
         mylcd.lcd_clear()
         mylcd.lcd_display_string("Reservation has", 1)
         mylcd.lcd_display_string("been made!", 2)
+        sleep(5)
