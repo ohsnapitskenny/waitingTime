@@ -15,11 +15,9 @@ def end_read(signal,frame):
     pass
 
 def show_time():
-    mylcd.lcd_display_string("  Waiting Time  ", 1)
-    print countdownTimer
-    remainingTime = countdownTimer / 60
-    print remainingTime
-    mylcd.lcd_display_string("   " + str(remainingTime) + " minutes  ", 2)
+    mylcd.lcd_display_string("   Wacht Tijd   ", 1)
+    remaining_time = countdownTimer / 60
+    mylcd.lcd_display_string("   " + str(remaining_time) + " minuten  ", 2)
 
 signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
@@ -30,26 +28,23 @@ print "Press Ctrl-C to stop."
 
 mylcd = RPi_I2C_driver.lcd()
 
-try:
-    while continue_reading:
-        show_time()
+while continue_reading:
+    show_time()
 
-        # Scan for cards
-        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+    # Scan for cards
+    (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
 
-        # If a card is found
-        if status == MIFAREReader.MI_OK:
-            mylcd.lcd_clear()
-            mylcd.lcd_display_string("   Resevering  ", 1)
-            mylcd.lcd_display_string("    Gemaakt!  ", 2)
-            sleep(5)
-            countdownTimer = countdownTimer - 5
+    # If a card is found
+    if status == MIFAREReader.MI_OK:
+        mylcd.lcd_clear()
+        mylcd.lcd_display_string("   Resevering  ", 1)
+        mylcd.lcd_display_string("    Gemaakt!  ", 2)
+        sleep(5)
+        countdownTimer = countdownTimer - 5
 
-        if countdownTimer == 0 :
-            countdownTimer = 1800
-        else:
-            countdownTimer = countdownTimer - 1
-            sleep(1)
-except Exception as e:
-    mylcd.lcd_clear()
-    mylcd.lcd_display_string("   Dead  ", 1)
+    if countdownTimer == 0:
+        countdownTimer = 1800
+    else:
+        countdownTimer = countdownTimer - 1
+        sleep(1)
+
