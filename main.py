@@ -8,7 +8,6 @@ continue_reading = True
 countdownTimer = 1800
 
 def end_read(signal,frame):
-
     global continue_reading
     print "Ctrl+C captured, ending read."
     continue_reading = False
@@ -31,22 +30,26 @@ print "Press Ctrl-C to stop."
 
 mylcd = RPi_I2C_driver.lcd()
 
-while continue_reading:
-    show_time()
+try:
+    while continue_reading:
+        show_time()
 
-    # Scan for cards
-    (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+        # Scan for cards
+        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
 
-    # If a card is found
-    if status == MIFAREReader.MI_OK:
-        mylcd.lcd_clear()
-        mylcd.lcd_display_string("   Resevering  ", 1)
-        mylcd.lcd_display_string("    Gemaakt!  ", 2)
-        sleep(5)
-        countdownTimer = countdownTimer - 5
+        # If a card is found
+        if status == MIFAREReader.MI_OK:
+            mylcd.lcd_clear()
+            mylcd.lcd_display_string("   Resevering  ", 1)
+            mylcd.lcd_display_string("    Gemaakt!  ", 2)
+            sleep(5)
+            countdownTimer = countdownTimer - 5
 
-    if countdownTimer == 0 :
-        countdownTimer = 1800
-    else:
-        countdownTimer = countdownTimer - 1
-        sleep(1)
+        if countdownTimer == 0 :
+            countdownTimer = 1800
+        else:
+            countdownTimer = countdownTimer - 1
+            sleep(1)
+except Exception as e:
+    mylcd.lcd_clear()
+    mylcd.lcd_display_string("   Dead  ", 1)
