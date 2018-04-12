@@ -5,7 +5,7 @@ import signal
 from time import *
 
 continue_reading = True
-# countdownTimer = 1800
+countdownTimer = 1800
 
 def end_read(signal,frame):
 
@@ -17,6 +17,7 @@ def end_read(signal,frame):
 
 def show_time():
     mylcd.lcd_display_string("  Waiting Time  ", 1)
+    print countdownTimer
     mylcd.lcd_display_string("   30 minutes  ", 2)
 
 signal.signal(signal.SIGINT, end_read)
@@ -37,6 +38,9 @@ while continue_reading:
     # If a card is found
     if status == MIFAREReader.MI_OK:
         mylcd.lcd_clear()
-        mylcd.lcd_display_string("  Resevering  ", 1)
-        mylcd.lcd_display_string("  Gemaakt!  ", 2)
+        mylcd.lcd_display_string("   Resevering  ", 1)
+        mylcd.lcd_display_string("    Gemaakt!  ", 2)
         sleep(5)
+        countdownTimer = countdownTimer - 5
+
+    countdownTimer = countdownTimer - 1
