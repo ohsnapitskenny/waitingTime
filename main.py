@@ -37,6 +37,6 @@ while continue_reading:
     # If a card is found
     if status == MIFAREReader.MI_OK:
         mylcd.lcd_clear()
-        mylcd.lcd_display_string("Reservation has", 1)
-        mylcd.lcd_display_string("been made!", 2)
+        mylcd.lcd_display_string("  Resevering  ", 1)
+        mylcd.lcd_display_string("  Gemaakt!  ", 2)
         sleep(5)
